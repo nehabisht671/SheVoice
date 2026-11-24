@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Choose Committee | SheVoice</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #F7F8F4;
+            font-family: 'DM Sans', sans-serif;
+            color: #25352B;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        .selection-navbar {
+            background: #FFFFFF;
+            min-height: 80px;
+            padding: 15px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #E8ECE7;
+        }
+
+        .brand {
+            font-family: 'Manrope', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            color: #28543D;
+            text-decoration: none;
+        }
+
+        .brand i {
+            color: #477B5D;
+            margin-right: 8px;
+        }
+
+        .home-link {
+            color: #477B5D;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .home-link:hover {
+            color: #28543D;
+        }
+
+
+        /* MAIN SECTION */
+
+        .selection-container {
+            max-width: 1250px;
+            margin: auto;
+            padding: 75px 25px 60px;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 55px;
+        }
+
+        .heading-label {
+            color: #477B5D;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 45px);
+            font-weight: 700;
+            color: #25352B;
+            margin: 17px 0;
+        }
+
+        .section-heading h1 span {
+            color: #477B5D;
+            font-style: italic;
+        }
+
+        .section-heading p {
+            color: #7C897F;
+            font-size: 15px;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+
+        /* COMMITTEE CARDS */
+
+        .committee-card {
+            background: #FFFFFF;
+            border: 1px solid #E8ECE7;
+            border-radius: 19px;
+            padding: 32px 25px 27px;
+            text-align: center;
+
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            box-shadow: 0 5px 20px rgba(35,70,45,0.04);
+
+            transition: all 0.3s ease;
+        }
+
+        .committee-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 14px 32px rgba(35,70,45,0.10);
+            border-color: #C8DCCB;
+        }
+
+
+        /* ICON */
+
+        .committee-icon {
+            width: 70px;
+            height: 70px;
+
+            background: #E5F0E7;
+            color: #477B5D;
+
+            border-radius: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 27px;
+
+            margin-bottom: 24px;
+
+            transition: 0.3s;
+        }
+
+        .committee-card:hover .committee-icon {
+            background: #477B5D;
+            color: white;
+            transform: scale(1.07);
+        }
+
+
+        /* CARD CONTENT */
+
+        .committee-card h5 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            color: #28543D;
+            margin-bottom: 13px;
+        }
+
+        .committee-card p {
+            font-size: 13px;
+            color: #7C897F;
+            line-height: 1.8;
+
+            margin-bottom: 25px;
+
+            flex-grow: 1;
+        }
+
+
+        /* LOGIN BUTTON */
+
+        .btn-login {
+            width: 100%;
+            max-width: 190px;
+
+            background: #477B5D;
+            color: #FFFFFF;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            margin-top: auto;
+
+            transition: all 0.25s ease;
+        }
+
+        .btn-login:hover {
+            background: #28543D;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-login i {
+            font-size: 12px;
+            transition: 0.2s;
+        }
+
+        .btn-login:hover i {
+            transform: translateX(4px);
+        }
+
+
+        /* FOOTER NOTE */
+
+        .selection-note {
+            margin-top: 50px;
+            padding: 19px 22px;
+
+            background: #EAF2EA;
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+
+            text-align: center;
+        }
+
+        .selection-note i {
+            color: #477B5D;
+            font-size: 18px;
+        }
+
+        .selection-note p {
+            margin: 0;
+            color: #607267;
+            font-size: 13px;
+        }
+
+
+        /* FOOTER */
+
+        .selection-footer {
+            background: #28543D;
+            text-align: center;
+            padding: 25px 15px;
+            color: #D5E5D7;
+            font-size: 12px;
+        }
+
+        .selection-footer p {
+            margin: 0;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media(max-width: 768px) {
+
+            .selection-navbar {
+                padding: 15px 5%;
+            }
+
+            .brand {
+                font-size: 22px;
+            }
+
+            .selection-container {
+                padding: 55px 20px 45px;
+            }
+
+            .section-heading {
+                margin-bottom: 38px;
+            }
+
+            .committee-card {
+                padding: 28px 22px;
+            }
+
+        }
+
+        @media(max-width: 480px) {
+
+            .selection-navbar {
+                min-height: 70px;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .home-link {
+                font-size: 12px;
+            }
+
+            .selection-container {
+                padding: 40px 17px;
+            }
+
+            .section-heading h1 {
+                font-size: 31px;
+            }
+
+            .section-heading p {
+                font-size: 13px;
+            }
+
+            .committee-card {
+                padding: 27px 20px;
+            }
+
+            .selection-note {
+                align-items: flex-start;
+                padding: 16px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="selection-navbar">
+
+        <a href="/" class="brand">
+            <i class="fa-solid fa-heart"></i> SheVoice
+        </a>
+
+        <a href="/" class="home-link">
+            <i class="fa-solid fa-arrow-left me-2"></i>
+            Back to Home
+        </a>
+
+    </nav>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="selection-container">
+
+        <!-- HEADING -->
+
+        <div class="section-heading">
+
+            <span class="heading-label">
+                <i class="fa-solid fa-shield-heart me-2"></i>
+                SHEVOICE PORTAL
+            </span>
+
+            <h1>
+                Choose Your <span>Committee</span>
+            </h1>
+
+            <p>
+                Select the committee assigned to you to access your
+                dedicated login portal and manage complaints securely.
+            </p>
+
+        </div>
+
+
+        <!-- COMMITTEE GRID -->
+
+        <div class="row g-4 justify-content-center">
+
+            {% for committee in committees %}
+
+            <div class="col-12 col-sm-6 col-lg-3 d-flex">
+
+                <div class="committee-card w-100">
+
+                    <!-- ICON -->
+
+                    <div class="committee-icon">
+
+                        <i class="fa-solid fa-users"></i>
+
+                    </div>
+
+
+                    <!-- COMMITTEE NAME -->
+
+                    <h5>{{ committee.name }}</h5>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <p>
+                        {{ committee.description or
+                        'Manage complaints assigned to your committee.' }}
+                    </p>
+
+
+                    <!-- LOGIN BUTTON -->
+
+                    <a href="{{ url_for('login', role='committee', committee_id=committee.id) }}"
+                       class="btn-login">
+
+                        Login
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% else %}
+
+            <div class="col-12 text-center">
+
+                <div class="committee-card">
+
+                    <div class="committee-icon">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+
+                    <h5>No Committees Available</h5>
+
+                    <p>
+                        Currently, there are no committees available.
+                        Please contact the administrator.
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- SECURITY NOTE -->
+
+        <div class="selection-note">
+
+            <i class="fa-solid fa-lock"></i>
+
+            <p>
+                Your login portal is secure. Please select your
+                registered committee to continue.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="selection-footer">
+
+        <p>
+            © 2026 SheVoice. All Rights Reserved.
+            Empowering Women Through Technology.
+        </p>
+
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

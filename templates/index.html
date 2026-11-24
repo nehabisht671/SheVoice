@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SheVoice | Empowering Women</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body class="landing-page">
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="landing-navbar">
+
+    <a href="/" class="landing-logo">
+
+        <i class="fa-solid fa-leaf"></i>
+
+        SheVoice
+
+    </a>
+
+
+    <div class="landing-menu">
+
+        <a href="/">Home</a>
+
+        <a href="#about">About</a>
+
+        <a href="#features">Features</a>
+
+
+        <!-- LOGIN DROPDOWN -->
+
+        <div class="login-dropdown">
+
+            <button class="login-dropdown-btn" type="button">
+
+                Login
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </button>
+
+
+            <div class="login-dropdown-content">
+
+                <a href="/login?role=student">
+
+                    <i class="fa-solid fa-user-graduate"></i>
+
+                    Student
+
+                </a>
+
+
+                <a href="/login?role=admin">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                    Admin
+
+                </a>
+
+
+              <a href="{{ url_for('committee_selection') }}">
+    <i class="fa-solid fa-users"></i>
+    Committee
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ================= HERO SECTION ================= -->
+
+<section class="landing-hero">
+
+
+    <!-- LEFT CONTENT -->
+
+    <div class="hero-content">
+
+        <span class="hero-label">
+
+            A SAFE SPACE. A STRONGER VOICE.
+
+        </span>
+
+
+        <h1>
+
+            Your Voice.
+
+            <br>
+
+            Your <span>Power.</span>
+
+            Your Safety.
+
+        </h1>
+
+
+        <p>
+
+            A secure and supportive platform where women can
+            express concerns, report grievances and make
+            their voices heard without fear.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a href="/register" class="hero-primary-btn">
+
+                Get Started
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+
+            <a href="#about" class="hero-secondary-btn">
+
+                Discover More
+
+            </a>
+
+        </div>
+
+
+        <div class="hero-trust">
+
+            <i class="fa-solid fa-shield-heart"></i>
+
+            Your privacy. Your voice. Our priority.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- RIGHT IMAGE -->
+
+    <div class="hero-visual">
+
+        <div class="hero-image-decoration"></div>
+
+
+        <div class="hero-image-container">
+
+            <img src="{{ url_for('static', filename='images/girl-support.png') }}"
+                 alt="SheVoice Support Illustration">
+
+        </div>
+
+
+        <div class="floating-card">
+
+            <i class="fa-solid fa-heart"></i>
+
+            <div>
+
+                <strong>You are heard.</strong>
+
+                <small>Your concerns matter.</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="landing-features" id="features">
+
+
+    <div class="section-heading">
+
+        <span>WHY SHEVOICE?</span>
+
+        <h2>A Space Where Every Voice Matters</h2>
+
+        <p>
+
+            Creating a safer, more supportive environment
+            through technology and meaningful action.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="feature-grid">
+
+
+        <div class="landing-feature-card">
+
+            <div class="landing-feature-icon green-icon">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+            </div>
+
+            <h3>Safe & Secure</h3>
+
+            <p>
+
+                A secure platform designed to protect
+                students' privacy and confidentiality.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="landing-feature-card">
+
+            <div class="landing-feature-icon orange-icon">
+
+                <i class="fa-solid fa-comment-dots"></i>
+
+            </div>
+
+            <h3>Voice Your Concerns</h3>
+
+            <p>
+
+                Report concerns and submit grievances
+                through a simple and accessible system.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="landing-feature-card">
+
+            <div class="landing-feature-icon purple-icon">
+
+                <i class="fa-solid fa-handshake-angle"></i>
+
+            </div>
+
+            <h3>Support & Resolution</h3>
+
+            <p>
+
+                Complaints are monitored and directed
+                towards the appropriate committees.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="landing-about" id="about">
+
+    <div class="about-content">
+
+        <span>ABOUT SHEVOICE</span>
+
+        <h2>
+
+            Because Every Woman Deserves
+
+            <em>To Be Heard.</em>
+
+        </h2>
+
+
+        <p>
+
+            SheVoice is a web-based grievance management
+            platform designed to provide students with
+            a structured and confidential way to raise
+            concerns within their university.
+
+        </p>
+
+
+        <p>
+
+            Through complaint submission, committee
+            assignment and status tracking, SheVoice
+            aims to make grievance management more
+            transparent, accessible and organized.
+
+        </p>
+
+    </div>
+
+
+    <div class="about-icon">
+
+        <i class="fa-solid fa-seedling"></i>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="landing-footer">
+
+    <h3>
+
+        <i class="fa-solid fa-leaf"></i>
+
+        SheVoice
+
+    </h3>
+
+
+    <p>
+
+        Empowering Women, One Voice at a Time.
+
+    </p>
+
+
+    <small>
+
+        © 2026 SheVoice. All Rights Reserved.
+
+    </small>
+
+</footer>
+
+
+</body>
+
+</html>

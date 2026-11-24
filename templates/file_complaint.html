@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Submit Complaint | SheVoice</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body class="student-page">
+
+
+<!-- SIDEBAR -->
+
+<aside class="student-sidebar">
+
+    <div class="student-brand">
+
+        <div class="brand-icon">
+            <i class="fa-solid fa-leaf"></i>
+        </div>
+
+        <div>
+            <h2>SheVoice</h2>
+            <span>Student Portal</span>
+        </div>
+
+    </div>
+
+
+    <div class="student-nav-label">
+        MAIN MENU
+    </div>
+
+
+    <nav class="student-nav">
+
+        <a href="{{ url_for('student_dashboard') }}">
+
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a href="{{ url_for('file_complaint') }}"
+           class="active">
+
+            <i class="fa-solid fa-file-circle-plus"></i>
+            <span>File Complaint</span>
+
+        </a>
+
+
+        <a href="{{ url_for('my_complaints') }}">
+
+            <i class="fa-solid fa-folder-open"></i>
+            <span>My Complaints</span>
+
+        </a>
+
+    </nav>
+
+
+    <div class="student-sidebar-bottom">
+
+        <a href="{{ url_for('logout') }}">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- MAIN -->
+
+<main class="student-main">
+
+
+    <header class="student-topbar">
+
+        <div>
+
+            <span class="student-breadcrumb">
+                STUDENT PORTAL / SUBMISSION
+            </span>
+
+            <h1>File a Complaint</h1>
+
+        </div>
+
+
+        <div class="student-profile">
+
+            <div class="student-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div>
+
+                <strong>
+                    {{ session.get('name', 'Student') }}
+                </strong>
+
+                <span>Student Account</span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- INTRODUCTION -->
+
+    <section class="complaint-intro">
+
+        <div>
+
+            <span class="welcome-tag">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                WE ARE HERE TO LISTEN
+            </span>
+
+            <h2>Let Your Voice Be Heard.</h2>
+
+            <p>
+
+                Share your concern with us.
+                Provide the necessary details so that your
+                complaint can be reviewed appropriately.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FORM LAYOUT -->
+
+    <section class="complaint-layout">
+
+
+        <!-- FORM -->
+
+        <div class="complaint-form-card">
+
+
+            <div class="student-section-header">
+
+                <div>
+
+                    <h3>Complaint Details</h3>
+
+                    <p>
+                        Please provide accurate information.
+                    </p>
+
+                </div>
+
+                <span class="required-note">
+                    * Required fields
+                </span>
+
+            </div>
+
+
+
+            <!-- FLASH MESSAGES -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, msg in messages %}
+
+                        <div class="student-flash-message">
+
+                            {{ msg }}
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+
+
+            <form action="{{ url_for('file_complaint') }}"
+                  method="POST"
+                  enctype="multipart/form-data"
+                  class="student-complaint-form">
+
+
+                <!-- CATEGORY -->
+
+                <div class="student-form-group">
+
+                    <label for="category">
+                        Complaint Category
+                        <span>*</span>
+                    </label>
+
+                    <select name="category"
+                            id="category"
+                            required>
+
+                        <option value="">
+                            Select a category
+                        </option>
+
+                        <option value="Harassment">
+                            Harassment
+                        </option>
+
+                        <option value="Ragging">
+                            Ragging
+                        </option>
+
+                        <option value="Discrimination">
+                            Discrimination
+                        </option>
+
+                        <option value="Infrastructure Issue">
+                            Infrastructure Issue
+                        </option>
+
+                        <option value="Academic Issue">
+                            Academic Issue
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                    <small>
+                        Select the category that best describes your concern.
+                    </small>
+
+                </div>
+
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="student-form-group">
+
+                    <label for="description">
+                        Describe Your Concern
+                        <span>*</span>
+                    </label>
+
+                    <textarea name="description"
+                              id="description"
+                              rows="7"
+                              placeholder="Explain your concern in detail..."
+                              required></textarea>
+
+                    <small>
+                        Include relevant details that may help
+                        the university understand the situation.
+                    </small>
+
+                </div>
+
+
+
+                <!-- EVIDENCE -->
+
+                <div class="student-form-group">
+
+                    <label>
+                        Supporting Evidence
+                    </label>
+
+                    <label for="proof"
+                           class="student-upload-box">
+
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                        <strong>
+                            Choose a file to upload
+                        </strong>
+
+                        <span>
+                            Upload supporting documents or evidence (optional).
+                        </span>
+
+                        <input type="file"
+                               name="proof"
+                               id="proof">
+
+                    </label>
+
+                </div>
+
+
+
+                <!-- ANONYMOUS -->
+
+                <div class="student-anonymous-box">
+
+                    <div class="anonymous-icon">
+
+                        <i class="fa-solid fa-user-shield"></i>
+
+                    </div>
+
+
+                    <div class="anonymous-content">
+
+                        <h4>Submit Anonymously?</h4>
+
+                        <p>
+
+                            Choose whether you want your complaint
+                            to be submitted anonymously.
+
+                        </p>
+
+                        <select name="anonymous"
+                                id="anonymous"
+                                required>
+
+                            <option value="No">
+                                No, submit with my identity
+                            </option>
+
+                            <option value="Yes">
+                                Yes, submit anonymously
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="student-form-actions">
+
+                    <a href="{{ url_for('student_dashboard') }}"
+                       class="student-cancel-btn">
+
+                        Cancel
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="student-primary-btn">
+
+                        <i class="fa-solid fa-paper-plane"></i>
+
+                        Submit Complaint
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+
+        <!-- SIDE INFORMATION -->
+
+        <aside class="complaint-guidance">
+
+
+            <div class="guidance-card">
+
+                <div class="guidance-icon">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+
+                <h3>Before You Submit</h3>
+
+                <ul>
+
+                    <li>
+                        Provide clear and accurate information.
+                    </li>
+
+                    <li>
+                        Select the appropriate complaint category.
+                    </li>
+
+                    <li>
+                        Attach supporting evidence if available.
+                    </li>
+
+                    <li>
+                        Review your details before submission.
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <div class="guidance-card privacy-guidance">
+
+                <div class="guidance-icon">
+                    <i class="fa-solid fa-shield-heart"></i>
+                </div>
+
+                <h3>Your Privacy</h3>
+
+                <p>
+
+                    SheVoice provides an anonymous submission
+                    option to help students raise concerns
+                    with greater confidence.
+
+                </p>
+
+            </div>
+
+
+        </aside>
+
+
+    </section>
+
+
+</main>
+
+
+</body>
+</html>

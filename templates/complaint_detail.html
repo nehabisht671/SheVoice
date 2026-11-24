@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Complaint Details | SheVoice</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f6f8f5;
+            color: #333;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 70px;
+            background: #a8d5ba;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #234b35;
+        }
+
+        .logo span {
+            font-weight: normal;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #234b35;
+            background: #fff8e7;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: white;
+        }
+
+        /* ================= PAGE ================= */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            color: #234b35;
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: #777;
+        }
+
+        /* ================= FLASH ================= */
+
+        .flash-container {
+            margin-bottom: 20px;
+        }
+
+        .flash {
+            padding: 13px 18px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .flash.success {
+            background: #dff3e6;
+            color: #216b3a;
+            border-left: 5px solid #4caf70;
+        }
+
+        .flash.danger {
+            background: #f8dddd;
+            color: #8a2424;
+            border-left: 5px solid #d9534f;
+        }
+
+        .flash.warning {
+            background: #fff0cc;
+            color: #795b16;
+            border-left: 5px solid #e6b84c;
+        }
+
+        .flash.info {
+            background: #dceef7;
+            color: #235b75;
+            border-left: 5px solid #5ba8d1;
+        }
+
+        /* ================= GRID ================= */
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        /* ================= CARD ================= */
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+
+        .card h2 {
+            color: #234b35;
+            margin-bottom: 20px;
+            font-size: 21px;
+            border-bottom: 1px solid #e8e8e8;
+            padding-bottom: 12px;
+        }
+
+        /* ================= COMPLAINT INFORMATION ================= */
+
+        .info-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            width: 180px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .info-value {
+            flex: 1;
+            color: #333;
+        }
+
+        .description {
+            background: #f8faf8;
+            padding: 18px;
+            border-radius: 9px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            margin-top: 8px;
+        }
+
+        /* ================= STATUS ================= */
+
+        .status {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background: #fff0cc;
+            color: #856404;
+        }
+
+        .status-progress {
+            background: #dceef7;
+            color: #23627d;
+        }
+
+        .status-resolved {
+            background: #dff3e6;
+            color: #216b3a;
+        }
+
+        .status-assigned {
+            background: #e7def7;
+            color: #60418a;
+        }
+
+        /* ================= PRIORITY ================= */
+
+        .priority {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .priority-high {
+            background: #f8dddd;
+            color: #a52828;
+        }
+
+        .priority-medium {
+            background: #fff0cc;
+            color: #856404;
+        }
+
+        .priority-low {
+            background: #dff3e6;
+            color: #216b3a;
+        }
+
+        /* ================= ANONYMOUS ================= */
+
+        .anonymous-box {
+            background: #fff8e7;
+            border-left: 5px solid #d5aa55;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+
+        .identified-box {
+            background: #eef7f1;
+            border-left: 5px solid #72ad88;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        /* ================= ASSIGNMENT ================= */
+
+        .assignment-card {
+            background: white;
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+            margin-bottom: 25px;
+        }
+
+        .assignment-card h2 {
+            color: #234b35;
+            margin-bottom: 20px;
+            font-size: 21px;
+        }
+
+        .assigned-box {
+            background: #eef8f1;
+            border: 1px solid #c6e4d0;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .assigned-committee {
+            font-size: 18px;
+            font-weight: bold;
+            color: #234b35;
+            margin-bottom: 8px;
+        }
+
+        .assignment-success {
+            color: #287541;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .assignment-date {
+            color: #777;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: #72ad88;
+            box-shadow: 0 0 0 2px rgba(114,173,136,0.15);
+        }
+
+        .assign-btn,
+        .reassign-btn {
+            width: 100%;
+            border: none;
+            padding: 13px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .assign-btn {
+            background: #5f9f76;
+            color: white;
+        }
+
+        .assign-btn:hover {
+            background: #4f8965;
+        }
+
+        .reassign-btn {
+            background: #e5efe8;
+            color: #28563a;
+            border: 1px solid #a8d5ba;
+        }
+
+        .reassign-btn:hover {
+            background: #d4e8db;
+        }
+
+        /* ================= ASSIGNMENT EMPTY ================= */
+
+        .not-assigned {
+            background: #fff8e7;
+            border-left: 5px solid #d5aa55;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #70591d;
+        }
+
+        /* ================= PROOF ================= */
+
+        .proof-link {
+            display: inline-block;
+            margin-top: 8px;
+            text-decoration: none;
+            color: #397654;
+            font-weight: bold;
+        }
+
+        .proof-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 800px) {
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .info-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .info-label {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        She<span>Voice</span>
+    </div>
+
+    <a href="{{ url_for('admin_dashboard') }}" class="back-btn">
+        ← Back to Dashboard
+    </a>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+    <div class="page-title">
+
+        <h1>Complaint Details</h1>
+
+        <p>
+            Review complaint information and manage committee assignment.
+        </p>
+
+    </div>
+
+
+    <!-- ================= FLASH MESSAGES ================= -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <div class="details-grid">
+
+        <!-- ================================================= -->
+        <!-- LEFT SIDE -->
+        <!-- ================================================= -->
+
+        <div>
+
+            <!-- ================= COMPLAINT DETAILS ================= -->
+
+            <div class="card">
+
+                <h2>Complaint Information</h2>
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Complaint ID
+                    </div>
+
+                    <div class="info-value">
+                        #{{ complaint.id }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Category
+                    </div>
+
+                    <div class="info-value">
+                        {{ complaint.category }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Status
+                    </div>
+
+                    <div class="info-value">
+
+                        {% if complaint.status == 'Pending' %}
+
+                            <span class="status status-pending">
+                                Pending
+                            </span>
+
+                        {% elif complaint.status == 'In Progress' %}
+
+                            <span class="status status-progress">
+                                In Progress
+                            </span>
+
+                        {% elif complaint.status == 'Resolved' %}
+
+                            <span class="status status-resolved">
+                                Resolved
+                            </span>
+
+                        {% else %}
+
+                            <span class="status status-assigned">
+                                {{ complaint.status }}
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Priority
+                    </div>
+
+                    <div class="info-value">
+
+                        {% if complaint.priority == 'High' %}
+
+                            <span class="priority priority-high">
+                                High
+                            </span>
+
+                        {% elif complaint.priority == 'Medium' %}
+
+                            <span class="priority priority-medium">
+                                Medium
+                            </span>
+
+                        {% elif complaint.priority == 'Low' %}
+
+                            <span class="priority priority-low">
+                                Low
+                            </span>
+
+                        {% else %}
+
+                            {{ complaint.priority or 'Not Set' }}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Submitted On
+                    </div>
+
+                    <div class="info-value">
+                        {{ complaint.created_at }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Complaint Type
+                    </div>
+
+                    <div class="info-value">
+
+                        {% if complaint.anonymous == 1 %}
+
+                            <span class="anonymous-box">
+                                Anonymous Complaint
+                            </span>
+
+                        {% else %}
+
+                            <span class="identified-box">
+                                Identified Complaint
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= STUDENT INFORMATION ================= -->
+
+            <div class="card">
+
+                <h2>Student Information</h2>
+
+                {% if complaint.anonymous == 1 %}
+
+                    <div class="anonymous-box">
+
+                        <strong>Anonymous Complaint</strong>
+
+                        <br>
+
+                        The student's identity is hidden from the committee.
+
+                        <br><br>
+
+                        <strong>Student ID:</strong>
+                        {{ complaint.student_id or 'Not available' }}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="info-row">
+
+                        <div class="info-label">
+                            Student ID
+                        </div>
+
+                        <div class="info-value">
+                            {{ complaint.student_id or 'Not available' }}
+                        </div>
+
+                    </div>
+
+
+                    {% if complaint.name %}
+
+                    <div class="info-row">
+
+                        <div class="info-label">
+                            Name
+                        </div>
+
+                        <div class="info-value">
+                            {{ complaint.name }}
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if complaint.email %}
+
+                    <div class="info-row">
+
+                        <div class="info-label">
+                            Email
+                        </div>
+
+                        <div class="info-value">
+                            {{ complaint.email }}
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- ================= DESCRIPTION ================= -->
+
+            <div class="card">
+
+                <h2>Complaint Description</h2>
+
+                <div class="description">
+
+                    {{ complaint.description }}
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PROOF ================= -->
+
+            {% if complaint.proof %}
+
+            <div class="card">
+
+                <h2>Supporting Evidence</h2>
+
+                <p>
+                    Supporting evidence was submitted with this complaint.
+                </p>
+
+                <a href="{{ complaint.proof }}"
+                   target="_blank"
+                   class="proof-link">
+
+                    View Supporting Evidence →
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- RIGHT SIDE -->
+        <!-- ================================================= -->
+
+        <div>
+
+            <!-- ================= ASSIGNMENT ================= -->
+
+            <div class="assignment-card">
+
+                <h2>Committee Assignment</h2>
+
+
+                {% if assignment %}
+
+                    <!-- ASSIGNED STATE -->
+
+                    <div class="assigned-box">
+
+                        <div class="assigned-committee">
+
+                            ✓ {{ assignment.committee_name }}
+
+                        </div>
+
+                        <div class="assignment-success">
+
+                            Committee Assigned Successfully
+
+                        </div>
+
+
+                        {% if assignment.assigned_at %}
+
+                        <div class="assignment-date">
+
+                            Assigned on:
+                            {{ assignment.assigned_at }}
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- REASSIGN FORM -->
+
+                    <form method="POST"
+                          action="{{ url_for('assign_complaint', complaint_id=complaint.id) }}">
+
+                        <div class="form-group">
+
+                            <label for="committee_id">
+
+                                Change Committee
+
+                            </label>
+
+
+                            <select name="committee_id"
+                                    id="committee_id"
+                                    required>
+
+                                {% for committee in committees %}
+
+                                    <option value="{{ committee.id }}"
+                                        {% if assignment.committee_id == committee.id %}
+                                            selected
+                                        {% endif %}>
+
+                                        {{ committee.name }}
+
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="reassign-btn">
+
+                            Reassign Committee
+
+                        </button>
+
+                    </form>
+
+
+                {% else %}
+
+                    <!-- NOT ASSIGNED STATE -->
+
+                    <div class="not-assigned">
+
+                        This complaint has not been assigned to a committee yet.
+
+                    </div>
+
+
+                    <!-- FIRST ASSIGNMENT FORM -->
+
+                    <form method="POST"
+                          action="{{ url_for('assign_complaint', complaint_id=complaint.id) }}">
+
+                        <div class="form-group">
+
+                            <label for="committee_id">
+
+                                Select Committee
+
+                            </label>
+
+
+                            <select name="committee_id"
+                                    id="committee_id"
+                                    required>
+
+                                <option value="">
+                                    -- Select Committee --
+                                </option>
+
+
+                                {% for committee in committees %}
+
+                                    <option value="{{ committee.id }}">
+
+                                        {{ committee.name }}
+
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="assign-btn">
+
+                            Assign Committee
+
+                        </button>
+
+                    </form>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- ================= ASSIGNMENT STATUS ================= -->
+
+            {% if assignment %}
+
+            <div class="card">
+
+                <h2>Assignment Status</h2>
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Committee
+                    </div>
+
+                    <div class="info-value">
+                        {{ assignment.committee_name }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Assignment
+                    </div>
+
+                    <div class="info-value">
+
+                        <span class="status status-assigned">
+                            Assigned
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                {% if assignment.assigned_at %}
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Assigned At
+                    </div>
+
+                    <div class="info-value">
+                        {{ assignment.assigned_at }}
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- ================= ADMIN NOTE ================= -->
+
+            <div class="card">
+
+                <h2>Admin Note</h2>
+
+                <p style="line-height: 1.6; color: #666;">
+
+                    The administrator assigns the complaint to the appropriate
+                    committee. The committee is responsible for reviewing the
+                    complaint and updating its status.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

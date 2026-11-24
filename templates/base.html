@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SheVoice 💖</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+
+    <div class="logo">SheVoice 💖</div>
+
+    <div class="menu">
+
+        <!-- HOME -->
+        <a href="/">Home</a>
+
+        {% if session.get('user_id') %}
+
+            <!-- STUDENT MENU -->
+            {% if session.get('role') == 'student' %}
+
+                <a href="/student/dashboard">Dashboard</a>
+                <a href="/student/register_complaint">Register Complaint</a>
+                <a href="/student/history">History</a>
+                <a href="/student/profile">Profile</a>
+
+            {% endif %}
+
+            <!-- ADMIN MENU -->
+            {% if session.get('role') == 'admin' %}
+
+                <a href="/admin/dashboard">Admin Dashboard</a>
+
+            {% endif %}
+
+            <!-- LOGOUT -->
+            <a href="/logout">Logout</a>
+
+        {% else %}
+
+            <!-- NOT LOGGED IN -->
+            <a href="/login">Login</a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- ================= PAGE CONTENT ================= -->
+<div>
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+</body>
+</html>

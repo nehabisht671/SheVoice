@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Complaints | SheVoice</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body class="student-page">
+
+
+<!-- SIDEBAR -->
+
+<aside class="student-sidebar">
+
+    <div class="student-brand">
+
+        <div class="brand-icon">
+            <i class="fa-solid fa-leaf"></i>
+        </div>
+
+        <div>
+            <h2>SheVoice</h2>
+            <span>Student Portal</span>
+        </div>
+
+    </div>
+
+
+    <div class="student-nav-label">
+        MAIN MENU
+    </div>
+
+
+    <nav class="student-nav">
+
+        <a href="{{ url_for('student_dashboard') }}">
+
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a href="{{ url_for('file_complaint') }}">
+
+            <i class="fa-solid fa-file-circle-plus"></i>
+            <span>File Complaint</span>
+
+        </a>
+
+
+        <a href="{{ url_for('my_complaints') }}"
+           class="active">
+
+            <i class="fa-solid fa-folder-open"></i>
+            <span>My Complaints</span>
+
+        </a>
+
+    </nav>
+
+
+    <div class="student-sidebar-bottom">
+
+        <a href="{{ url_for('logout') }}">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>Logout</span>
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- MAIN -->
+
+<main class="student-main">
+
+
+    <header class="student-topbar">
+
+        <div>
+
+            <span class="student-breadcrumb">
+                STUDENT PORTAL / COMPLAINT HISTORY
+            </span>
+
+            <h1>My Complaints</h1>
+
+        </div>
+
+
+        <div class="student-profile">
+
+            <div class="student-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div>
+
+                <strong>
+                    {{ session.get('name', 'Student') }}
+                </strong>
+
+                <span>Student Account</span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- INTRODUCTION -->
+
+    <section class="complaint-intro">
+
+        <div>
+
+            <span class="welcome-tag">
+                <i class="fa-solid fa-clipboard-list"></i>
+                COMPLAINT HISTORY
+            </span>
+
+            <h2>Track Your Submissions.</h2>
+
+            <p>
+
+                Keep track of your submitted complaints
+                and monitor their current resolution status.
+
+            </p>
+
+        </div>
+
+
+        <a href="{{ url_for('file_complaint') }}"
+           class="student-primary-btn">
+
+            <i class="fa-solid fa-plus"></i>
+
+            New Complaint
+
+        </a>
+
+    </section>
+
+
+
+    <!-- STATISTICS -->
+
+    <section class="student-stats complaints-stats">
+
+
+        <div class="student-stat-card">
+
+            <div class="student-stat-icon green-stat">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+            </div>
+
+            <h2>{{ complaints|length }}</h2>
+
+            <p>Total Submissions</p>
+
+        </div>
+
+
+
+        <div class="student-stat-card">
+
+            <div class="student-stat-icon orange-stat">
+
+                <i class="fa-solid fa-clock"></i>
+
+            </div>
+
+            <h2>
+                {{ complaints|selectattr(3, 'equalto', 'Pending')|list|length }}
+            </h2>
+
+            <p>Pending</p>
+
+        </div>
+
+
+
+        <div class="student-stat-card">
+
+            <div class="student-stat-icon blue-stat">
+
+                <i class="fa-solid fa-spinner"></i>
+
+            </div>
+
+            <h2>
+                {{ (complaints|selectattr(3, 'equalto', 'In Progress')|list|length) +
+                   (complaints|selectattr(3, 'equalto', 'In Process')|list|length) }}
+            </h2>
+
+            <p>In Progress</p>
+
+        </div>
+
+
+
+        <div class="student-stat-card">
+
+            <div class="student-stat-icon purple-stat">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+
+            <h2>
+                {{ complaints|selectattr(3, 'equalto', 'Resolved')|list|length }}
+            </h2>
+
+            <p>Resolved</p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- COMPLAINT TABLE -->
+
+    <section class="student-recent-card">
+
+
+        <div class="student-section-header">
+
+            <div>
+
+                <h3>Complaint History</h3>
+
+                <p>
+                    All your submitted complaints in one place.
+                </p>
+
+            </div>
+
+            <span class="complaint-count">
+
+                {{ complaints|length }} Records
+
+            </span>
+
+        </div>
+
+
+
+        <div class="student-table-wrapper">
+
+            <table class="student-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>COMPLAINT ID</th>
+
+                        <th>CATEGORY</th>
+
+                        <th>DATE SUBMITTED</th>
+
+                        <th>CURRENT STATUS</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                {% if complaints %}
+
+
+                    {% for c in complaints %}
+
+
+                    <tr>
+
+                        <td class="student-complaint-id">
+
+                            SV{{ "%03d"|format(c[0]) }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ c[1] }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ c[2] }}
+
+                        </td>
+
+
+                        <td>
+
+
+                            {% if c[3] == 'Pending' %}
+
+                                <span class="student-status pending-status">
+
+                                    <i class="fa-solid fa-clock"></i>
+
+                                    Pending
+
+                                </span>
+
+
+                            {% elif c[3] in ['In Progress', 'In Process'] %}
+
+                                <span class="student-status progress-status">
+
+                                    <i class="fa-solid fa-spinner"></i>
+
+                                    In Progress
+
+                                </span>
+
+
+                            {% elif c[3] == 'Resolved' %}
+
+                                <span class="student-status resolved-status">
+
+                                    <i class="fa-solid fa-check"></i>
+
+                                    Resolved
+
+                                </span>
+
+
+                            {% else %}
+
+                                <span class="student-status pending-status">
+
+                                    {{ c[3] }}
+
+                                </span>
+
+                            {% endif %}
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <tr>
+
+                        <td colspan="4">
+
+                            <div class="student-empty-state">
+
+                                <i class="fa-solid fa-folder-open"></i>
+
+                                <h4>No Complaints Found</h4>
+
+                                <p>
+
+                                    You haven't submitted any complaints yet.
+
+                                </p>
+
+                                <a href="{{ url_for('file_complaint') }}">
+
+                                    Submit Your First Complaint
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                {% endif %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- PRIVACY MESSAGE -->
+
+    <div class="student-bottom-note">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <p>
+
+            Your complaint information is handled through
+            the SheVoice grievance management system.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="student-footer">
+
+        <span>
+            © 2026 SheVoice | Student Grievance Portal
+        </span>
+
+        <span>
+            Your Voice Matters.
+        </span>
+
+    </footer>
+
+
+</main>
+
+
+</body>
+</html>

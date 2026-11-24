@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard - SheVoice</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial;
+        display: flex;
+        background: #FFF8E7;  /* cream */
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+        width: 230px;
+        height: 100vh;
+        background: linear-gradient(180deg, #A8D5BA, #4F9D69); /* pista gradient */
+        position: fixed;
+        padding-top: 20px;
+    }
+
+    .sidebar h2 {
+        color: white;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: 14px 20px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+        background: rgba(255,255,255,0.2);
+        padding-left: 25px;
+    }
+
+    /* MAIN AREA */
+    .main {
+        margin-left: 230px;
+        padding: 30px;
+        width: calc(100% - 230px);
+        min-height: 100vh;
+        background: #FFF8E7; /* cream */
+    }
+
+    .card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        color: #4F9D69; /* pista green */
+    }
+
+    .welcome {
+        margin-bottom: 20px;
+        font-size: 18px;
+        color: #333;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>SheVoice 💖</h2>
+
+    <a href="/student_dashboard">🏠 Dashboard</a>
+    <a href="/file_complaint">📩 File Complaint</a>
+    <a href="/my_complaints">📋 My Complaints</a>
+    <a href="/profile">👤 Profile</a>
+    <a href="/logout">🚪 Logout</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+    <br>
+    <br>
+    <br>
+    <br>
+<br>
+<br>
+<Br>
+    <br>
+    <br>
+    
+    <div class="card">
+        <h1>Student Dashboard</h1>
+
+        <p class="welcome">
+            Welcome back 👋  
+            This is your complaint management system.
+        </p>
+
+        <hr>
+
+        <h3>Quick Info</h3>
+        <ul>
+            <li>✔ You can file new complaints anytime</li>
+            <li>✔ Track complaint status in My Complaints</li>
+            <li>✔ View admin responses in detail page</li>
+        </ul>
+
+    </div>
+
+</div>
+
+</body>
+</html>
